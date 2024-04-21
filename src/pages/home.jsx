@@ -1,4 +1,45 @@
+import { useEffect } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
 const Home = () => {
+  const [data, setData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const handleSearch = async (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+  };
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      setData([]);
+      const req = await fetch(
+        `https://restcountries.com/v3.1/name/${searchQuery}`
+      );
+      const res = await req.json();
+      if (res.status === 404) {
+        setErrorMessage("Data Not Found");
+        setData([]);
+        throw new Error("Data Not Found");
+      }
+      setData(res);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    if (searchQuery.trim() !== "") {
+      setErrorMessage("");
+      fetchData();
+    } else {
+      setErrorMessage("");
+      setData([]);
+    }
+  }, [searchQuery]);
+
   return (
     <main className="container">
       <h1 className="header">Country</h1>
@@ -7,6 +48,8 @@ const Home = () => {
           type="search"
           className="search__input"
           placeholder="Type any country name"
+          value={searchQuery}
+          onChange={handleSearch}
         />
         <i className="search__icon">
           <svg
@@ -23,6 +66,28 @@ const Home = () => {
           </svg>
         </i>
       </div>
+      {isLoading ? (
+        <p className="data__country text--center">Loading. . .</p>
+      ) : null}
+      {errorMessage ? (
+        <p className="data__country text--error">{errorMessage}</p>
+      ) : null}
+      {data.length > 0 ? (
+        <ul className="data__country">
+          {data.slice(0, 5).map((item, index) => {
+            return (
+              <li key={index}>
+                <Link
+                  className="data__country__item"
+                  to={`/country/${item?.name?.common}`.toLowerCase()}
+                >
+                  {item?.name?.common}
+                </Link>
+              </li>
+            );
+          })}{" "}
+        </ul>
+      ) : null}
     </main>
   );
 };
