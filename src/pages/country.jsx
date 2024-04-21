@@ -187,7 +187,7 @@ const Country = () => {
             <div className="wrapper-country">
               <Card shadow="shadow" overflowHidden="overflow-hidden">
                 <h4 className="code__title">LatLong</h4>
-                <div className="wrapper__code__number">
+                <div className="wrapper__code__number code__suffix">
                   {item?.latlng?.map((code, index) => (
                     <h3 key={index} className="code__number">
                       {code}
