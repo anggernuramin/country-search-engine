@@ -1,8 +1,12 @@
-# React + Vite
+# Cara Menjalankan Program
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. Buka terminal lakukan git clone `https://github.com/anggernuramin/country-search-engine`
+2. Masuk ke folder yang sudah di clone
+3. Jalankan perintah `npm install`
+4. Jalankan perintah `npm run dev`
+5. Buka browser sesuai dengan host
 
-Currently, two official plugins are available:
+# Cara Build Program
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Jalankan Perintah `npm run build`
+2. Jalankan perintah `npm run preview` untuk melihat hasil build
